@@ -1,0 +1,109 @@
+---
+title: "Workshop"
+author: "Sylvia"
+date: "2023-12-21"
+output:
+  html_document:
+    toc: yes
+---
+
+## First code chunk 
+
+This is my **first code chunk.** This is *very important* to define all the codes that will write below it.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+
+
+### Importing libraries/packages
+
+```{r importing packages} 
+library(ggplot2)
+library(dplyr)
+```
+
+### Data Exploration
+
+#### Data Frame
+
+```{r DataFrame}
+df <- mtcars
+head(df)
+tail(df)
+```
+
+#### Functions to explore dataframe
+
+##### Summary
+
+```{r summary}
+summary(df)
+```
+
+##### Table
+
+```{r Table}
+table(df$hp)
+table(df$cyl)
+```
+
+#### Functions to understand dataframe
+
+##### Filter functions
+
+```{r Filter}
+head(filter(df,hp==335))
+```
+Image of this car:
+![Maserati Bora](https://images.squarespace-cdn.com/content/v1/5e7918a4b1051f6e49dcfdb1/1634937415727-WVRAG69V0KT862R5YY89/DS102048FF.jpg)
+
+##### Correlation
+
+```{r Corr}
+df_corr <- round(cor(mtcars), 2)
+library(reshape2)
+melted_corr <- melt(df_corr)
+
+library(ggplot2)
+ggplot(data = melted_corr, aes(x = Var1, y = Var2, fill = value, label = value)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient2(low = "blue", high = "red", mid = "white",
+                       midpoint = 0, limit = c(-1, 1), space = "Lab",
+                       name = "correlation scale") +
+  geom_text(size = 4) +
+  labs(x = "Variable 1", y = "Variable 2")
+```
+
+##### Including Plots
+
+###### Negative correlation
+
+```{r Negative}
+ggplot(mtcars, aes(x=wt, y=mpg)) +
+  geom_point() + geom_smooth(method=lm, se=FALSE)
+```
+
+###### Postive correlation
+
+```{r Positive}
+ggplot(mtcars, aes(x=disp, y=wt)) +
+  geom_point() + geom_smooth(method=lm, se=FALSE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
